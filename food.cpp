@@ -3,7 +3,11 @@
 #include <cstdlib>
 
 void Food::load() {
-	shape.setPosition({100.0f, 100.0f});
+
+	foodPosition.x = 10;
+	foodPosition.y = 10;
+
+	shape.setPosition({foodPosition.x * 20.0f, foodPosition.y * 20.0f});
 	shape.setFillColor(sf::Color::Red);
 }
 
@@ -11,11 +15,14 @@ void Food::draw(sf::RenderWindow& window) {
 	window.draw(shape);
 }
 
-float Food::randomCoordinate(int axis) {
+void Food::randomCoordinate(int axis) {
 
-	if (axis == 0) 
-		return rand() % 790;
-	else 
-		return rand() % 590;
+	if (axis == 0) {
+		foodPosition.x = rand() % 30;
+	}
+		
+	else {
+		foodPosition.y = rand() % 30;
+	}
 }
 

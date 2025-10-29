@@ -37,13 +37,14 @@ int main() {
 
 		snake.update(deltaTime, grid);
 
-		if (food.shape.getPosition() == snake.body[0].getPosition()) {
+		if (snake.headPosition.x == food.foodPosition.x && 
+		    snake.headPosition.y == food.foodPosition.y) {
 			snake.increaseSnake();
 
-			float xCoordinate = food.randomCoordinate(0);
-			float yCoordinate = food.randomCoordinate(1);
+			food.randomCoordinate(0);
+			food.randomCoordinate(1);
 
-			food.shape.setPosition(sf::Vector2f({xCoordinate, yCoordinate}));
+			food.shape.setPosition(sf::Vector2f({food.foodPosition.x * 20.0f, food.foodPosition.y * 20.0f}));
 		}	
 
 		window.clear(sf::Color::Black);

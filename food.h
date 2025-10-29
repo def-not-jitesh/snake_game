@@ -12,7 +12,7 @@ class Food {
 
 		const sf::RectangleShape getShape();
 
-		float randomCoordinate(int axis);
+		void randomCoordinate(int axis);
 
 		sf::RectangleShape shape {sf::Vector2f({20.0f, 20.0f})};
 
