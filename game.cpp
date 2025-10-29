@@ -29,12 +29,13 @@ int main() {
 				window.close();
 		}
 
-		snake.headPosition = snake.body[0].getPosition();
+		snake.headPosition.x = snake.body[0].getPosition().x/20;
+		snake.headPosition.y = snake.body[0].getPosition().y/20;
 
 		sf::Time elapsedTime = clock.restart();
 		float deltaTime = elapsedTime.asSeconds();
 
-		snake.update(deltaTime);
+		snake.update(deltaTime, grid);
 
 		if (food.shape.getPosition() == snake.body[0].getPosition()) {
 			snake.increaseSnake();
@@ -49,7 +50,8 @@ int main() {
 
 		grid.draw(window);
 		
-		if (snake.headPosition == snake.body[0].getPosition()) {
+		if (snake.headPosition.x == snake.body[0].getPosition().x/20 &&
+		    snake.headPosition.y == snake.body[0].getPosition().y/20) {
 			snake.drawStatic(window);
 		} else {
 			snake.drawMovement(window);

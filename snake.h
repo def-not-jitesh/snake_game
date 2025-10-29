@@ -1,6 +1,7 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+#include "grid.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -8,11 +9,11 @@ class Snake {
 	
 	public:
 
-		sf::Vector2f headPosition {};
+		Position headPosition;
 		std::vector<sf::RectangleShape> body;
 
 		void load();
-		void update(float deltaTime);
+		void update(float deltaTime, const Grid& grid);
 
 		void drawMovement(sf::RenderWindow& window);
 		void drawStatic(sf::RenderWindow& window);
@@ -20,6 +21,9 @@ class Snake {
 		void setSpeed(float snakeSpeed);
 
 		void increaseSnake();
+
+		float moveDelay = 0.20f;
+		float delayTimer {};
 
 	private:
 		

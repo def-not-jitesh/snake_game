@@ -1,6 +1,7 @@
 #ifndef FOOD_H
 #define FOOD_H
 
+#include "grid.h"
 #include <SFML/Graphics.hpp>
 
 class Food {
@@ -14,6 +15,8 @@ class Food {
 		float randomCoordinate(int axis);
 
 		sf::RectangleShape shape {sf::Vector2f({20.0f, 20.0f})};
+
+		Position foodPosition;
 
 };
 

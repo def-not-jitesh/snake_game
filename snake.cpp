@@ -2,29 +2,39 @@
 #include <iostream>
 
 void Snake::load() {
+	
+	headPosition.x = 15;
+	headPosition.y = 15;
 
 	body.push_back(sf::RectangleShape {sf::Vector2f({20.0f, 20.0f})});
-	body[0].setPosition({0.0f, 0.0f});
+	body[0].setPosition(sf::Vector2f(headPosition.x * 20.0f, headPosition.y * 20.0f));
 	body[0].setFillColor(sf::Color::Green);
+
 }
 
-void Snake::update(float deltaTime) {
+void Snake::update(float deltaTime, const Grid& grid) {
 	
+	delayTimer += deltaTime;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		body[0].move(sf::Vector2f({0.0f, -10.0f}) * speed * deltaTime);
+		headPosition.y--;
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		body[0].move(sf::Vector2f({-10.0f, 0.0f}) * speed * deltaTime);
+		headPosition.x--;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		body[0].move(sf::Vector2f({0.0f, 10.0f}) * speed * deltaTime);
+		headPosition.y++;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		body[0].move(sf::Vector2f({10.0f, 0.0f}) * speed * deltaTime);
+		headPosition.x++;
+	}
+
+	if (delayTimer > moveDelay) {
+		body[0].setPosition(grid.gridBlocks[headPosition.x][headPosition.y].getPosition());
+		delayTimer = 0.0f;
 	}
 
 }
@@ -51,7 +61,7 @@ void Snake::drawStatic(sf::RenderWindow& window) {
 }
 
 void Snake::increaseSnake() {
-	body.push_back(sf::RectangleShape {sf::Vector2f({10.0f, 10.0f})});
+	body.push_back(sf::RectangleShape {sf::Vector2f({20.0f, 20.0f})});
 	int index = body.size() - 1;
 
 	body[index].setFillColor(sf::Color::Yellow);
