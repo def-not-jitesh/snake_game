@@ -1,12 +1,17 @@
 #include "snake.h"
 #include "food.h"
+#include "grid.h"
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main() {
 
-	sf::RenderWindow window(sf::VideoMode({800, 600}), "snake game");
+	sf::RenderWindow window(sf::VideoMode({600, 600}), "snake game");
 	window.setFramerateLimit(60);
+
+	Grid grid;
+	grid.load();
 
 	Food food;
 	food.load();
@@ -14,24 +19,6 @@ int main() {
 	Snake snake;
 	snake.load();
 	snake.setSpeed(100.0f);
-
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
-	snake.increaseSnake();
 
 	sf::Clock clock;
 
@@ -42,14 +29,32 @@ int main() {
 				window.close();
 		}
 
+		snake.headPosition = snake.body[0].getPosition();
+
 		sf::Time elapsedTime = clock.restart();
 		float deltaTime = elapsedTime.asSeconds();
 
 		snake.update(deltaTime);
 
+		if (food.shape.getPosition() == snake.body[0].getPosition()) {
+			snake.increaseSnake();
+
+			float xCoordinate = food.randomCoordinate(0);
+			float yCoordinate = food.randomCoordinate(1);
+
+			food.shape.setPosition(sf::Vector2f({xCoordinate, yCoordinate}));
+		}	
+
 		window.clear(sf::Color::Black);
+
+		grid.draw(window);
 		
-		snake.draw(window);
+		if (snake.headPosition == snake.body[0].getPosition()) {
+			snake.drawStatic(window);
+		} else {
+			snake.drawMovement(window);
+		}
+
 		food.draw(window);
 
 		window.display();

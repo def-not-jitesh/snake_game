@@ -1,5 +1,5 @@
 CC := g++
-OBJ := game.o snake.o food.o
+OBJ := game.o snake.o food.o grid.o
 FLAGS := -lsfml-graphics -lsfml-system -lsfml-window
 BINARY := game 
 

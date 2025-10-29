@@ -8,9 +8,14 @@ class Snake {
 	
 	public:
 
+		sf::Vector2f headPosition {};
+		std::vector<sf::RectangleShape> body;
+
 		void load();
 		void update(float deltaTime);
-		void draw(sf::RenderWindow& window);
+
+		void drawMovement(sf::RenderWindow& window);
+		void drawStatic(sf::RenderWindow& window);
 
 		void setSpeed(float snakeSpeed);
 
@@ -19,7 +24,6 @@ class Snake {
 	private:
 		
 		float speed {};
-		std::vector<sf::RectangleShape> body;
 };
 
 #endif
