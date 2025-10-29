@@ -17,22 +17,42 @@ void Snake::update(float deltaTime, const Grid& grid) {
 	delayTimer += deltaTime;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		headPosition.y--;
+		currentDirection = Direction::Up;
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		headPosition.x--;
+		currentDirection = Direction::Left;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		headPosition.y++;
+		currentDirection = Direction::Down;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		headPosition.x++;
+		currentDirection = Direction::Right;
 	}
 
 	if (delayTimer > moveDelay) {
+
+		switch (currentDirection) {
+			case (Direction::Up):
+				headPosition.y--;
+				break;
+
+			case (Direction::Right):
+				headPosition.x++;
+				break;
+
+			case (Direction::Left):
+				headPosition.x--;
+				break;
+
+			case (Direction::Down):
+				headPosition.y++;
+				break;
+		
+		}
+
 		body[0].setPosition(grid.gridBlocks[headPosition.x][headPosition.y].getPosition());
 		delayTimer = 0.0f;
 	}
@@ -53,16 +73,11 @@ void Snake::drawMovement(sf::RenderWindow& window) {
 	}
 }
 
-void Snake::drawStatic(sf::RenderWindow& window) {
-	
-	for (int i = 0; i < body.size(); i++) {
-		window.draw(body[i]);
-	}
-}
-
 void Snake::increaseSnake() {
 	body.push_back(sf::RectangleShape {sf::Vector2f({20.0f, 20.0f})});
 	int index = body.size() - 1;
 
 	body[index].setFillColor(sf::Color::Yellow);
+
+	body[index].setPosition(body[index-1].getPosition());
 }

@@ -5,6 +5,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+enum class Direction {
+	Up, 
+	Down, 
+	Right,
+	Left
+};
+
 class Snake {
 	
 	public:
@@ -16,7 +23,6 @@ class Snake {
 		void update(float deltaTime, const Grid& grid);
 
 		void drawMovement(sf::RenderWindow& window);
-		void drawStatic(sf::RenderWindow& window);
 
 		void setSpeed(float snakeSpeed);
 
@@ -24,6 +30,8 @@ class Snake {
 
 		float moveDelay = 0.20f;
 		float delayTimer {};
+
+		Direction currentDirection = Direction::Right;
 
 	private:
 		
