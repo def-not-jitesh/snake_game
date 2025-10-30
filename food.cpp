@@ -15,14 +15,21 @@ void Food::draw(sf::RenderWindow& window) {
 	window.draw(shape);
 }
 
-void Food::randomCoordinate(int axis) {
+int Food::randomCoordinate(int axis) {
 
 	if (axis == 0) {
-		foodPosition.x = rand() % 30;
+		return rand() % 29;
 	}
 		
 	else {
-		foodPosition.y = rand() % 30;
+		return rand() % 29;
 	}
 }
+
+void Food::spawn() {
+	foodPosition.x = randomCoordinate(0);
+	foodPosition.y = randomCoordinate(1);
+}
+
+
 

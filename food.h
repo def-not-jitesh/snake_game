@@ -9,10 +9,11 @@ class Food {
 		void load();
 		void update();
 		void draw(sf::RenderWindow& window);
+		void spawn();
 
 		const sf::RectangleShape getShape();
 
-		void randomCoordinate(int axis);
+		int randomCoordinate(int axis);
 
 		sf::RectangleShape shape {sf::Vector2f({20.0f, 20.0f})};
 

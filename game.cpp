@@ -18,7 +18,6 @@ int main() {
 
 	Snake snake;
 	snake.load();
-	snake.setSpeed(100.0f);
 
 	sf::Clock clock;
 
@@ -40,13 +39,24 @@ int main() {
 		if (snake.headPosition.x == food.foodPosition.x && 
 		    snake.headPosition.y == food.foodPosition.y) {
 			snake.increaseSnake();
+			food.spawn();
 
-			food.randomCoordinate(0);
-			food.randomCoordinate(1);
+			for (int i = 0; i < snake.body.size(); i++) {
+				while (food.foodPosition.x == snake.body[i].getPosition().x/20 &&
+				    food.foodPosition.y == snake.body[i].getPosition().y/20) {
+					food.spawn();
+					break;
+				}
+			}
 
-			food.shape.setPosition(sf::Vector2f({food.foodPosition.x * 20.0f, food.foodPosition.y * 20.0f}));
+			food.shape.setPosition(sf::Vector2f(food.foodPosition.x * 20.0f, food.foodPosition.y * 20.0f));
+			
 		}	
 
+		if (snake.hasLost()) {
+			window.close();
+		}
+		
 		window.clear(sf::Color::Black);
 
 		grid.draw(window);

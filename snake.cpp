@@ -17,19 +17,31 @@ void Snake::update(float deltaTime, const Grid& grid) {
 	delayTimer += deltaTime;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		currentDirection = Direction::Up;
+
+		if (currentDirection != Direction::Down) {
+			currentDirection = Direction::Up;
+		}
 	}
 		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		currentDirection = Direction::Left;
+		if (currentDirection != Direction::Right) {
+			currentDirection = Direction::Left;
+		}
+
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		currentDirection = Direction::Down;
+		if (currentDirection != Direction::Up) {
+			currentDirection = Direction::Down;
+		}
+
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		currentDirection = Direction::Right;
+		if (currentDirection != Direction::Left) {
+			currentDirection = Direction::Right;
+		}
+
 	}
 
 	if (delayTimer > moveDelay) {
@@ -59,12 +71,9 @@ void Snake::update(float deltaTime, const Grid& grid) {
 
 		body[0].setPosition(grid.gridBlocks[headPosition.x][headPosition.y].getPosition());
 		delayTimer = 0.0f;
+	
 	}
 
-}
-
-void Snake::setSpeed(float snakeSpeed) {
-	speed = snakeSpeed;
 }
 
 void Snake::drawMovement(sf::RenderWindow& window) {
@@ -82,4 +91,15 @@ void Snake::increaseSnake() {
 	body[index].setFillColor(sf::Color::Yellow);
 
 	body[index].setPosition(body[index-1].getPosition());
+}
+
+bool Snake::hasLost() {
+	if ((headPosition.x > 29 || headPosition.x < 0) ||
+	    (headPosition.y > 29 || headPosition.y < 0)) {
+
+	    	std::cout << "you have lost the game\n";
+		return true;
+	    }
+	
+	return false;
 }

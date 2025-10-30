@@ -24,18 +24,15 @@ class Snake {
 
 		void drawMovement(sf::RenderWindow& window);
 
-		void setSpeed(float snakeSpeed);
-
 		void increaseSnake();
 
 		float moveDelay = 0.20f;
 		float delayTimer {};
 
+		bool hasLost();
+
 		Direction currentDirection = Direction::Right;
 
-	private:
-		
-		float speed {};
 };
 
 #endif
