@@ -52,6 +52,7 @@ int main() {
 		grid.draw(window);
 		
 		snake.drawMovement(window);
+
 		food.draw(window);
 
 		window.display();

@@ -13,7 +13,7 @@ void Snake::load() {
 }
 
 void Snake::update(float deltaTime, const Grid& grid) {
-	
+
 	delayTimer += deltaTime;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
@@ -33,6 +33,10 @@ void Snake::update(float deltaTime, const Grid& grid) {
 	}
 
 	if (delayTimer > moveDelay) {
+
+		for (int i = body.size() - 1; i > 0; i--) {
+			body[i].setPosition(body[i-1].getPosition());
+		}	
 
 		switch (currentDirection) {
 			case (Direction::Up):
@@ -64,13 +68,11 @@ void Snake::setSpeed(float snakeSpeed) {
 }
 
 void Snake::drawMovement(sf::RenderWindow& window) {
-
-	window.draw(body[0]);
-
-	for (int i = body.size() - 1; i > 0; i--) {
-		body[i].setPosition(body[i-1].getPosition());
+	
+	for (int i = 0; i < body.size(); i++) {
 		window.draw(body[i]);
 	}
+
 }
 
 void Snake::increaseSnake() {
