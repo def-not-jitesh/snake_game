@@ -34,7 +34,7 @@ int main() {
 		sf::Time elapsedTime = clock.restart();
 		float deltaTime = elapsedTime.asSeconds();
 
-		snake.update(deltaTime, grid);
+		snake.update(deltaTime, grid, window);
 
 		if (snake.headPosition.x == food.foodPosition.x && 
 		    snake.headPosition.y == food.foodPosition.y) {
@@ -53,10 +53,6 @@ int main() {
 			
 		}	
 
-		if (snake.hasLost()) {
-			window.close();
-		}
-		
 		window.clear(sf::Color::Black);
 
 		grid.draw(window);

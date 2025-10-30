@@ -20,7 +20,7 @@ class Snake {
 		std::vector<sf::RectangleShape> body;
 
 		void load();
-		void update(float deltaTime, const Grid& grid);
+		void update(float deltaTime, const Grid& grid, sf::RenderWindow& window);
 
 		void drawMovement(sf::RenderWindow& window);
 

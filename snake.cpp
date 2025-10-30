@@ -12,7 +12,7 @@ void Snake::load() {
 
 }
 
-void Snake::update(float deltaTime, const Grid& grid) {
+void Snake::update(float deltaTime, const Grid& grid, sf::RenderWindow& window) {
 
 	delayTimer += deltaTime;
 
@@ -70,6 +70,11 @@ void Snake::update(float deltaTime, const Grid& grid) {
 		}
 
 		body[0].setPosition(grid.gridBlocks[headPosition.x][headPosition.y].getPosition());
+		
+		if (hasLost()) {
+			window.close();
+		}
+
 		delayTimer = 0.0f;
 	
 	}
@@ -100,6 +105,16 @@ bool Snake::hasLost() {
 	    	std::cout << "you have lost the game\n";
 		return true;
 	    }
+
+	if (body.size() > 1) {
+		for (int i = 1; i < body.size(); i++) {
+			if (headPosition.x == body[i].getPosition().x/20 &&
+			    headPosition.y == body[i].getPosition().y/20) {
+				std::cout << "you have lost the game\n";
+				return true;
+			}
+		}
+	}
 	
 	return false;
 }
