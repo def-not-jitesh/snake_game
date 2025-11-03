@@ -8,7 +8,7 @@
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode({600, 600}), "snake game");
-	window.setFramerateLimit(60);
+	// window.setFramerateLimit(60);
 
 	Grid grid;
 	grid.load();
@@ -39,10 +39,15 @@ int main() {
 		if (snake.headPosition.x == food.foodPosition.x && 
 		    snake.headPosition.y == food.foodPosition.y) {
 			snake.increaseSnake();
+
+			if (snake.snakeSpeed < 3.0f) {
+				snake.snakeSpeed += 0.1f;
+			}
+
 			food.spawn();
 
 			for (int i = 0; i < snake.body.size(); i++) {
-				while (food.foodPosition.x == snake.body[i].getPosition().x/20 &&
+				if (food.foodPosition.x == snake.body[i].getPosition().x/20 &&
 				    food.foodPosition.y == snake.body[i].getPosition().y/20) {
 					food.spawn();
 					break;
@@ -64,3 +69,8 @@ int main() {
 		window.display();
 	}
 } 
+
+/* NOTE TO MYSELF:
+ * introduce obstacles in the grid 
+ * and give the player the option to calculate the shortest path between snake head and food 
+ */

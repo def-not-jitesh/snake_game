@@ -19,6 +19,8 @@ class Snake {
 		Position headPosition;
 		std::vector<sf::RectangleShape> body;
 
+		float snakeSpeed = {1.0f};
+
 		void load();
 		void update(float deltaTime, const Grid& grid, sf::RenderWindow& window);
 

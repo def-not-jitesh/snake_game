@@ -30,6 +30,3 @@ void Food::spawn() {
 	foodPosition.x = randomCoordinate(0);
 	foodPosition.y = randomCoordinate(1);
 }
-
-
-

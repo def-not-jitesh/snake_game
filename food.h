@@ -6,6 +6,7 @@
 
 class Food {
 	public:
+
 		void load();
 		void update();
 		void draw(sf::RenderWindow& window);

@@ -44,7 +44,7 @@ void Snake::update(float deltaTime, const Grid& grid, sf::RenderWindow& window) 
 
 	}
 
-	if (delayTimer > moveDelay) {
+	 if (delayTimer > moveDelay/snakeSpeed) {
 
 		for (int i = body.size() - 1; i > 0; i--) {
 			body[i].setPosition(body[i-1].getPosition());
@@ -77,7 +77,7 @@ void Snake::update(float deltaTime, const Grid& grid, sf::RenderWindow& window) 
 
 		delayTimer = 0.0f;
 	
-	}
+ 	}
 
 }
 
